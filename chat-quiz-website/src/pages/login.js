@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from 'styled-components';
 import googleLogo from "../images/google-logo.png"
+import firebase from "firebase/app";
+import { signIn } from "../firebase";
+import { useNavigate } from "react-router-dom";
+
 
 const Log = styled.div`
   background-color: #232327;
@@ -52,15 +56,33 @@ const Text = styled.div`
 `;
 
 function Login() {
+  
+  const handleClick = () => {
+    signIn();
+  }
 
-    return (
-        <Log>
-            <LogButton placeholder="Login with Google">
-                <Google src={googleLogo} alt="googleLogo" />
-                <Text>Login with Google</Text>
-            </LogButton>
-        </Log>
-    )
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user.uid)
+        navigate("/main")
+      } else {
+        console.log("user is signed out")
+      }
+    });
+  }, [firebase.auth()])
+
+  return (
+    <Log>
+      <LogButton placeholder="Login with Google" 
+      onClick={handleClick}>
+        <Google src={googleLogo} alt="googleLogo" />
+        <Text>Login with Google</Text>
+      </LogButton>
+    </Log>
+  )
 }
 
 export { Login }

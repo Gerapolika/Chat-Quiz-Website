@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import logoQ from "../images/logoQ.png"
 import styled from 'styled-components';
+import { signOut } from "../firebase";
 
 const LogOutButton = styled.button`
   background: none;
@@ -18,13 +19,18 @@ const LogOutButton = styled.button`
 
 function Header() {
 
+    const handleClick = () => {
+        signOut();
+      }
+    
+
     return (
         <>
         <header >
             <div>
                 <img src={logoQ} alt="logoQ" className="logoQ" />
             </div>
-            <LogOutButton>
+            <LogOutButton onClick={handleClick}>
                 Logout
             </LogOutButton>
         </header>

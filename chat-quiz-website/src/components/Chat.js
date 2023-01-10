@@ -34,6 +34,7 @@ const ChatInput = styled.textarea`
   height: 4.5em;
   background: rgba(255,255,255, 0.2);
   border: none;
+  color: #fff;
   border-radius: 5px;
   margin: 0 0 1.4em 0.3em; 
   ::placeholder,
