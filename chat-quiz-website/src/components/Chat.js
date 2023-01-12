@@ -29,7 +29,6 @@ const ChatBack = styled.div`
 const ChatMessages = styled.div`
   width: 98%;
   margin-left: 1px;
-  height: 37em;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
