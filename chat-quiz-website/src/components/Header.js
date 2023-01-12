@@ -15,7 +15,7 @@ const LogOutButton = styled.button`
   border-radius: 2px;
   color: #56bab7;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 300;
 `
 function Header() {
         
