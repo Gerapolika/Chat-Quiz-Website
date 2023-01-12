@@ -18,9 +18,18 @@ const quizSlice = createSlice({
                 userReadiness : true
             })
         },
-
+        cancelStartQuiz(state, acion) {
+            state.user = {
+                user: acion.payload.user,
+                userReadiness : false
+            }
+            storeDB.collection("users").doc(acion.payload.user).set({
+                user: acion.payload.user,
+                userReadiness : false
+            })
+        },
     }
 })
 
-export const { startQuiz } = quizSlice.actions;
+export const { startQuiz, cancelStartQuiz } = quizSlice.actions;
 export default quizSlice.reducer;
