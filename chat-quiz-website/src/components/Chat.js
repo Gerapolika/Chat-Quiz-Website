@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from 'styled-components';
 import chatBack from "../images/chat-back.jpg"
+import { useDispatch, useSelector } from 'react-redux';
+import { sendMessage, updateMessagesArr } from "../store/messagesSlice";
+import firebase from "firebase/app";
+import { database } from '../firebase'
+
 
 const ChatBack = styled.div`
   background-image: url(${chatBack});
@@ -20,7 +25,7 @@ const ChatBack = styled.div`
 
 const ChatMessages = styled.div`
   width: 98%;
-  margin-left: 1%;
+  margin-left: 1px;
   height: 37em;
 `
 
@@ -56,17 +61,114 @@ const SendButton = styled.button`
   font-weight: 300;
   font-size: 0.9em;
 `
+const MessageContainer = styled.div`
+background: none;
+width: 60%;
+height: 11vh;
+color: #fff;
+font-family: Roboto;
+font-weight: 300;
+font-size: 0.9em;
+`
+
+const UserInfo = styled.div`
+display: flex;
+color: #56bab7;
+align-items: center;
+margin: 7px 0 0 15px;
+font-family: Roboto;
+font-weight: 400;
+font-size: 0.9em;
+`
+const Message = styled.div`
+  height: 6vh;
+  box-shadow: inset 0px -10px 50px  -20px #000, 0px 5px 15px rgba(0, 0, 0, 0.8);
+  border-top: none;
+  border-bottom: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 0.9em;
+  line-height: 6vh;
+  padding: 2px 6px 2px 6px;
+  `
+
+const Photo = styled.img`
+-webkit-background-size: 30px 30px;
+background-size: 30px 30px;
+margin-right: 5px;
+-webkit-border-radius: 50%;
+border-radius: 50%;
+display: block;
+position: relative;
+height: 30px;
+width: 30px;
+z-index: 0;
+`
 
 
 function Chat() {
 
+  const [message, setMessage] = useState();
+  const [data, setData] = useState()
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+        
+    const messagesRef = database.ref('messages/');
+    messagesRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      setData(data)
+    });
+  }, [])  
+  
+  useEffect(() => {
+    
+    dispatch(updateMessagesArr(data))
+  }, [data])
+
+  const messages = useSelector(state => state.messages.messagesArr);
+
+  const send = () => {
+    dispatch(sendMessage({
+      message: message,
+      user: firebase.auth().currentUser.uid,
+      photoURL: firebase.auth().currentUser.photoURL,
+      displayName: firebase.auth().currentUser.displayName,
+    })
+    )
+  }
+
+
   return (
     <ChatBack>
-      <ChatMessages />
+
+      <ChatMessages>
+        {messages && Object.entries(messages).map(message =>
+          <MessageContainer key={message[0]}>
+            <UserInfo>
+              <Photo src={message[1].photoURL} />
+              <p>{message[1].displayName}</p>
+            </UserInfo>
+            <Message >{message[1].message}</Message>
+          </MessageContainer>)}
+      </ChatMessages>
+
       <SendMessageContainer>
-        <ChatInput placeholder="Send a message..." />
-        <SendButton>SEND</SendButton>
+        <ChatInput placeholder="Send a message..."
+          onChange={(e) => { setMessage(e.target.value) }} onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              send();
+            }
+          }} />
+
+        <SendButton onClick={send} >
+          SEND
+        </SendButton>
       </SendMessageContainer>
+
     </ChatBack>
   )
 }

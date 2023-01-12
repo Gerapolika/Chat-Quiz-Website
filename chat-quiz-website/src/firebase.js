@@ -16,17 +16,18 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
-//  const database = firebase.database();
+ const database = firebase.database();
 
 const signIn = () => {
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+  .then(() => {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth()
-    .signInWithPopup(provider)
-  }
+    firebase.auth().signInWithPopup(provider)
+  })}
 
 const signOut = () => {
     firebase.auth().signOut();
 }
 
 
-export {signIn, signOut}
+export {signIn, signOut, database}

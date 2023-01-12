@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import logoQ from "../images/logoQ.png"
 import styled from 'styled-components';
 import { signOut } from "../firebase";
+import firebase from "firebase/app";
+
 
 const LogOutButton = styled.button`
   background: none;
@@ -13,26 +15,32 @@ const LogOutButton = styled.button`
   border-radius: 2px;
   color: #56bab7;
   font-family: Roboto;
-  font-weight: 400
+  font-weight: 400;
 `
-
-
 function Header() {
+        
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            document.getElementById('logOutButton').classList.remove('hidden')
+        } else {
+            document.getElementById('logOutButton').classList.add('hidden')
+        }
+      });
 
     const handleClick = () => {
         signOut();
       }
     
-
     return (
         <>
         <header >
             <div>
                 <img src={logoQ} alt="logoQ" className="logoQ" />
             </div>
-            <LogOutButton onClick={handleClick}>
+            <LogOutButton id="logOutButton" onClick={handleClick}>
                 Logout
             </LogOutButton>
+            
         </header>
         <Outlet />
         </>

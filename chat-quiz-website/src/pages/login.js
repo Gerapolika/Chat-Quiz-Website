@@ -66,7 +66,6 @@ function Login() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.uid)
         navigate("/main")
       } else {
         console.log("user is signed out")
