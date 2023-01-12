@@ -14,7 +14,7 @@ const messagesSlice = createSlice({
         },
 
         sendMessage(state, action) {
-        database.ref(`messages/` + new Date()).set({
+        database.ref(`messages/` + new Date().getTime()).set({
             message: action.payload.message,
             user: action.payload.user,
             photoURL: action.payload.photoURL,
@@ -22,8 +22,7 @@ const messagesSlice = createSlice({
         })
         },
 
-        updateMessagesArr(state, action) {
-            console.log(state.messagesArr, action)
+        updateMessagesArr() {
         },
 
         setErrorMessages(state, action) {

@@ -6,6 +6,9 @@ const QuizContainer = styled.div`
   margin: auto;
   height: 21%;
   border-radius: 5px;
+  @media (max-width: 820px) {
+    width: 50%;
+  }
 `
 
 const QuizStartText = styled.h3`
@@ -19,6 +22,9 @@ const QuizStartText = styled.h3`
   width: 90%;
   margin: auto;
   text-align: center;
+  @media (max-width: 820px) {
+    font-size: 1em;
+  }
 `
 
 const QuizStartButton = styled.button`
@@ -31,7 +37,13 @@ const QuizStartButton = styled.button`
   border-radius: 2px;
   color: #56bab7;
   font-family: Roboto;
-  font-weight: 400
+  font-weight: 400;
+  @media (max-width: 820px) {
+    font-size: 0.9em;
+  };
+  @media (max-width: 430px) {
+    font-size: 0.7em;
+  }
 `
 
 

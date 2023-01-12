@@ -19,11 +19,10 @@ firebase.initializeApp(firebaseConfig);
  const database = firebase.database();
 
 const signIn = () => {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-  .then(() => {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-  })}
+    firebase.auth()
+    .signInWithPopup(provider)
+  }
 
 const signOut = () => {
     firebase.auth().signOut();
