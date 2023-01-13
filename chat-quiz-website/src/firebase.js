@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD5V0uERum9512Gbk3ItD0bhUBZip0cmFg",
@@ -19,16 +20,17 @@ firebase.initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
  const database = firebase.database();
  const storeDB = firebase.firestore();
+ const storage = firebase.storage();
 
 const signIn = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth()
-    .signInWithPopup(provider)
+    firebase.auth().signInWithPopup(provider)
   }
+  
 
 const signOut = () => {
     firebase.auth().signOut();
 }
 
 
-export {signIn, signOut, database, storeDB}
+export {signIn, signOut, database, storeDB, storage}

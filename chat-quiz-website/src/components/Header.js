@@ -4,6 +4,9 @@ import logoQ from "../images/logoQ.png"
 import styled from 'styled-components';
 import { signOut } from "../firebase";
 import firebase from "firebase/app";
+import { useDispatch } from "react-redux";
+import { cancelStartQuiz } from "../store/quizSlice";
+
 
 
 const LogOutButton = styled.button`
@@ -18,33 +21,36 @@ const LogOutButton = styled.button`
   font-weight: 300;
 `
 function Header() {
-        
+
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             document.getElementById('logOutButton').classList.remove('hidden')
         } else {
             document.getElementById('logOutButton').classList.add('hidden')
         }
-      });
+    });
+
+    const dispatch = useDispatch();
 
     const handleClick = () => {
+        dispatch(cancelStartQuiz({user: firebase.auth().currentUser.uid}))
         signOut();
-      }
-    
+    }
+
     return (
         <>
-        <header >
-            <div>
-                <img src={logoQ} alt="logoQ" className="logoQ" />
-            </div>
-            <LogOutButton id="logOutButton" onClick={handleClick}>
-                Logout
-            </LogOutButton>
-            
-        </header>
-        <Outlet />
+            <header >
+                <div>
+                    <img src={logoQ} alt="logoQ" className="logoQ" />
+                </div>
+                <LogOutButton id="logOutButton" onClick={handleClick}>
+                    Logout
+                </LogOutButton>
+
+            </header>
+            <Outlet />
         </>
     )
 }
 
-export {Header}
+export { Header }

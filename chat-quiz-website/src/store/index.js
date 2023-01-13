@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import messagesReducer from './messagesSlice';
 import quizReducer from './quizSlice';
 import {fetchMessages, watchSend} from '../sagas/messagesSaga';
+import { fetchQuiz } from '../sagas/quizSaga';
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -12,3 +13,4 @@ export default configureStore({
 })
  sagaMiddleware.run(fetchMessages)
  sagaMiddleware.run(watchSend)
+ sagaMiddleware.run(fetchQuiz)

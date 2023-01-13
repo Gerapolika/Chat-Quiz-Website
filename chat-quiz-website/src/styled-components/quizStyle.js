@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const QuizContainer = styled.div`
+export const QuizStartContainer = styled.div`
   width: 26%;
   margin: auto;
   height: 21%;
@@ -43,13 +43,88 @@ font-weight: 300;
 }
 `
 
-
 export const QuizStartButton = styled(Button)`
-  background: none;
-  color: #56bab7;
+background: none;
+color: #56bab7;
+`
+
+export const QuizContainer = styled.div`
+  width: 23%;
+  margin: 0 auto 0 auto;
+  height: 68vh;
+  @media (max-width: 820px) {
+    width: 40%;
+  };  
 `
 
 export const QuizCancelButton = styled(Button)`
   background: #56bab7;
   color: #fff;
+`
+
+export const QuizQuestionsContainer = styled.div`
+  height: 68vh;
+  border: 1px solid #56bab7;
+  border-radius: 5px;
+  background-color: #232327;
+`
+
+export const QuizText = styled.div`
+  width: 80%;
+  margin: auto;
+  height: 30vh;
+  color: #fff;
+  padding: 70px 0 0 0;
+  font-family: Roboto;
+  font-weight: 300;
+  @media (max-height: 680px) {
+    font-size: 0.8em;
+    padding: 20px 0 0 0;
+  };
+`
+
+export const QuizAnswerContainer = styled.div`
+  width: 90%;
+  margin: auto;
+  height: 38vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`
+
+export const QuizAnswer = styled.button`
+  background: none;
+  min-height: 4vh;
+  border: 2px solid #56bab7;
+  border-radius: 2px;
+  text-align: center;
+  color: #56bab7;
+  font-family: Roboto;
+  font-weight: 300; 
+  @media (max-height: 680px) {
+    font-size: 0.8em;
+  };
+`
+
+export const ResultIcons = styled.div`
+  display: flex;
+  margin: 20px auto 50px auto;
+  width: 23%;
+  height: 30px;
+  @media (max-height: 680px) {
+    margin: 10px auto 10px auto;
+  };
+`
+
+export const QuizIcons = styled.img`
+-webkit-background-size: 30px 30px;
+background-size: 30px 30px;
+margin-right: 5px;
+-webkit-border-radius: 50%;
+border-radius: 50%;
+display: block;
+position: relative;
+height: 25px;
+width: 25x;
+z-index: 0;
 `

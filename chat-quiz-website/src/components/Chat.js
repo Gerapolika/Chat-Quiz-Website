@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, updateMessagesArr } from "../store/messagesSlice";
 import firebase from "firebase/app";
 import { database } from '../firebase'
-import { ChatBack, ChatMessages, MessageContainer, UserInfo, 
-  Message, Photo, SendMessageContainer, 
-  ChatTextarea, SendButton } from "../styled-components/chatStyle";
+import {
+  ChatBack, ChatMessages, MessageContainer, UserInfo,
+  Message, Photo, SendMessageContainer,
+  ChatTextarea, SendButton
+} from "../styled-components/chatStyle";
 
 
 
 function Chat() {
-  
+
   const [message, setMessage] = useState();
   const [data, setData] = useState();
   const inputRef = useRef(null);
@@ -23,9 +25,9 @@ function Chat() {
       const data = snapshot.val();
       setData(data)
     });
-  }, [])  
-  
-  useEffect(() => {   
+  }, [])
+
+  useEffect(() => {
     dispatch(updateMessagesArr(data))
   }, [data])
 
@@ -44,19 +46,22 @@ function Chat() {
 
 
   return (
+
     <ChatBack>
 
-      <ChatMessages>
-        {messages && Object.entries(messages).map(message =>
-          <MessageContainer position={message[1].user === firebase.auth().currentUser.uid ? "right" : "left"} 
-          key={message[0]}>
-            <UserInfo>
-              <Photo src={message[1].photoURL} />
-              <p>{message[1].displayName}</p>
-            </UserInfo>
-            <Message >{message[1].message}</Message>
-          </MessageContainer>)}
-      </ChatMessages>
+      {firebase.auth().currentUser !== null &&
+        <ChatMessages>
+          {messages && Object.entries(messages).map(message =>
+            <MessageContainer position={message[1].user === firebase.auth().currentUser.uid ? "right" : "left"}
+              key={message[0]}>
+              <UserInfo>
+                <Photo src={message[1].photoURL} />
+                <p>{message[1].displayName}</p>
+              </UserInfo>
+              <Message >{message[1].message}</Message>
+            </MessageContainer>)}
+        </ChatMessages>
+      }
 
       <SendMessageContainer>
         <ChatTextarea ref={inputRef} placeholder="Send a message..."

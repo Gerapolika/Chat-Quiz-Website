@@ -4,6 +4,8 @@ import googleLogo from "../images/google-logo.png"
 import firebase from "firebase/app";
 import { signIn } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { cancelStartQuiz } from "../store/quizSlice";
+import { useDispatch } from "react-redux";
 
 
 const Log = styled.div`
@@ -63,12 +65,15 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        dispatch(cancelStartQuiz({user: firebase.auth().currentUser.uid}))
         navigate("/main")
       } else {
-        console.log("user is signed out")
+        console.log("user is signed out");
       }
     });
   }, [firebase.auth()])
