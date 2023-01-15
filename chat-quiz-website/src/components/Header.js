@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { signOut } from "../firebase";
 import firebase from "firebase/app";
 import { useDispatch } from "react-redux";
-import { cancelStartQuiz } from "../store/quizSlice";
+import { cancelStartQuiz, clearIconsArr } from "../store/quizSlice";
 
 
 
@@ -34,6 +34,7 @@ function Header() {
 
     const handleClick = () => {
         dispatch(cancelStartQuiz({user: firebase.auth().currentUser.uid}))
+        dispatch(clearIconsArr())
         signOut();
     }
 

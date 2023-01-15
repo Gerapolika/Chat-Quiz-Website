@@ -46,9 +46,30 @@ const quizSlice = createSlice({
                 url: action.payload.url,
                 index: action.payload.index
             })
-        }
+        },
+        clearIconsArr(state) {
+            state.iconsArr = []
+        },
+
+        updateResults(state, action) {
+            storeDB.collection("users").doc(action.payload.user).set({
+                user: action.payload.user,
+                userReadiness : true,
+                result: action.payload.counter,
+                photoURL: action.payload.photoURL,
+                displayName: action.payload.displayName,          
+            })
+        },
     }
 })
 
-export const { startQuiz, cancelStartQuiz, getDataQuiz, setErrorQuiz, updateIconsArr } = quizSlice.actions;
+export const { 
+    startQuiz, 
+    cancelStartQuiz, 
+    getDataQuiz, 
+    setErrorQuiz, 
+    updateIconsArr,
+    updateResults,
+    clearIconsArr
+} = quizSlice.actions;
 export default quizSlice.reducer;
