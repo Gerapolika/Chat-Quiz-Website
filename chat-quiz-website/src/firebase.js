@@ -31,7 +31,7 @@ const signIn = () => {
 const signOut = () => {
     firebase.auth().signOut().then(function() {
         // Redirect to google sign out.
-        window.location.assign('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/');
+        window.location.assign('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://joyful-starship-e5ef78.netlify.app/');
       }).catch(function(error) {
          console.log('Google account signOut false: ' + error)
       });
